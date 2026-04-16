@@ -20,42 +20,6 @@ The deployed site explains:
 - A DAG-style view of upstream unit checks and downstream integration confidence
 - Release notes, classroom prompts, commit hash, and deployment time
 
-## Project Structure
-
-```text
-.
-├── .github/workflows/
-│   ├── ci.yml
-│   └── cd.yml
-├── content/
-│   └── site-state.json
-├── examples/
-│   ├── bad-unit-change/
-│   │   └── string-utils.mjs
-│   └── good-change/
-│       └── site-state.json
-├── src/
-│   ├── gitops-state.mjs
-│   ├── pipeline-metrics.mjs
-│   └── string-utils.mjs
-├── scripts/
-│   ├── build.mjs
-│   ├── serve.mjs
-│   └── validate.mjs
-├── site/
-│   ├── app.js
-│   ├── index.html
-│   └── styles.css
-└── tests/
-    ├── integration/
-    │   ├── build.integration.test.mjs
-    │   └── site-content.integration.test.mjs
-    └── unit/
-        ├── gitops-state.test.mjs
-        ├── pipeline-metrics.test.mjs
-        ├── string-utils.test.mjs
-        └── validate.test.mjs
-```
 
 ## Run Locally
 
@@ -165,16 +129,3 @@ After deployment you should see:
 - Version `1.1.0`
 - Updated release notes and classroom prompts
 - A new derived rollout score, commit hash, and deployment timestamp
-
-## Why This Helps Students Understand GitOps
-
-This repository intentionally avoids complex infrastructure and keeps only the core GitOps mechanics:
-
-- Git is the single source of truth
-- Changes go through PR review
-- Different automated test layers catch different kinds of mistakes
-- Upstream unit checks feed downstream release-state assembly and integration confidence
-- Automated checks block invalid state from entering `main`
-- The state in `main` is automatically reconciled into the live page
-
-It is not a full replacement for Argo CD or Flux, but it is a strong first GitOps classroom demo.
