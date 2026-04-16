@@ -20,6 +20,32 @@ The deployed site explains:
 - A DAG-style view of upstream unit checks and downstream integration confidence
 - Release notes, classroom prompts, commit hash, and deployment time
 
+## Project Structure
+
+```text
+.
+├── content/
+│   └── site-state.json
+├── examples/
+│   ├── bad-integration-change/
+│   │   └── app.js
+│   ├── bad-unit-change/
+│   │   └── string-utils.mjs
+│   └── good-change/
+│       └── site-state.json
+├── site/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
+├── src/
+│   ├── gitops-state.mjs
+│   ├── pipeline-metrics.mjs
+│   └── string-utils.mjs
+└── tests/
+    ├── integration/
+    └── unit/
+```
+
 
 ## Run Locally
 
@@ -87,7 +113,7 @@ Key points:
 
 This gives students a very clear Git-driven deployment loop.
 
-## Bad Change Example: Break an Upstream Unit Test
+## Bad Change Example 1: Break an Upstream Unit Test
 
 This example changes an upstream string helper in `src/string-utils.mjs`. Validation still passes, but the unit-test layer fails before any downstream build confidence is granted.
 
@@ -100,6 +126,20 @@ git push -u origin demo/bad-unit-change
 ```
 
 Then create a PR. CI should fail in the unit-test step because slug generation and owner formatting no longer match the downstream expectations used by release-state assembly.
+
+## Bad Change Example 2: Break a Downstream Integration Test
+
+This example changes the frontend wiring in `site/app.js`. Validation and unit tests still pass, but the integration layer fails because the page no longer loads the deployment artifact that the browser is supposed to consume.
+
+```bash
+git switch -c demo/bad-integration-change
+cp examples/bad-integration-change/app.js site/app.js
+git add site/app.js
+git commit -m "demo: break integration wiring"
+git push -u origin demo/bad-integration-change
+```
+
+Then create a PR. CI should fail in the integration-test step because the page now fetches `deploy-state.json` instead of `site-data.json`, so the browser-facing wiring no longer matches the built artifact.
 
 ## Good Change Example: Complete a GitOps Release
 
