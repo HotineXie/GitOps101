@@ -1,12 +1,60 @@
 {
   "version": "1.0.0",
-  "headline": "The main branch is the desired state for the GitHub Pages site",
-  "summary": "Update the declarative state through a pull request, let CI validate it, and let CD deploy it after merge.",
+  "courseTitle": "GitOps for a Student Course Portal",
+  "headline": "A pull request updates the desired state for a fictional student-facing learning portal",
+  "summary": "Students act as release engineers for a course portal. They propose a content change, read automated feedback, and watch GitHub Pages reconcile the merged state into a live website.",
+  "changeRequest": {
+    "title": "Publish lesson 4 and tighten deployment feedback",
+    "description": "Ship a new lesson page, surface faster CI feedback, and keep rollback simple for a teaching team supporting a student portal.",
+    "owners": [
+      "Platform Team",
+      "Teaching Assistants"
+    ],
+    "reviewers": 2,
+    "filesChanged": 4,
+    "rollbackWindowMinutes": 12
+  },
+  "pipelineStages": [
+    {
+      "name": "Unit Tests",
+      "minutes": 3,
+      "automated": true,
+      "purpose": "Validate pure string and scoring functions before anything more expensive runs."
+    },
+    {
+      "name": "Integration Tests",
+      "minutes": 5,
+      "automated": true,
+      "purpose": "Confirm that the built artifact contains the data and wiring the browser expects."
+    },
+    {
+      "name": "Preview Review",
+      "minutes": 8,
+      "automated": false,
+      "purpose": "Review the rendered teaching site before merging the pull request."
+    },
+    {
+      "name": "GitHub Pages Deploy",
+      "minutes": 4,
+      "automated": true,
+      "purpose": "Publish the merged desired state with fresh commit and deployment metadata."
+    }
+  ],
   "learningPath": [
-    "Open a feature branch and change content/site-state.json.",
-    "Submit a pull request so CI can validate the proposed desired state.",
-    "Merge into main after review and passing checks.",
-    "Let CD rebuild the site from the merged Git commit.",
-    "Watch GitHub Pages publish the new page so live state matches main."
+    "Open a feature branch and change the desired state in content/site-state.json.",
+    "Submit a pull request so CI can run fast upstream checks before review.",
+    "Use unit-test and integration-test feedback to decide whether the change is safe.",
+    "Merge into main after review so CD can rebuild the site from the merged commit.",
+    "Watch GitHub Pages publish the new page so live state matches the repository."
+  ],
+  "releaseNotes": [
+    "The page now explains a release scenario instead of only showing raw deployment metadata.",
+    "CI separates upstream unit checks from downstream integration checks for clearer feedback.",
+    "Deployment metadata stays visible so students can connect Git commits to live output."
+  ],
+  "studentQuestions": [
+    "Which parts of this release belong in Git-managed desired state and which belong in automation code?",
+    "What kind of mistake should fail fast in unit tests before the build even starts?",
+    "Why should integration tests verify the artifact the browser actually consumes?"
   ]
 }

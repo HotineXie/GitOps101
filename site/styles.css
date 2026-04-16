@@ -102,20 +102,26 @@ body::before {
 
 .hero h1 {
   font-size: clamp(2.4rem, 5vw, 4.5rem);
-  max-width: 12ch;
+  max-width: 14ch;
 }
 
 .hero p,
 .status-note,
 .metric p,
-.meta-row span {
+.detail-item span {
   color: var(--muted);
 }
 
-.hero-copy p:last-child {
+.hero-copy > p {
   max-width: 56ch;
   font-size: 1.05rem;
   line-height: 1.7;
+}
+
+.course-title {
+  margin: 0 0 0.6rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+  color: var(--secondary);
 }
 
 .supporting-copy {
@@ -123,6 +129,12 @@ body::before {
   font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
   font-size: 0.92rem;
   color: var(--secondary);
+}
+
+.release-narrative {
+  margin: 1rem 0 0;
+  font-size: 1rem;
+  color: var(--ink);
 }
 
 .hero-side {
@@ -148,7 +160,7 @@ body::before {
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -185,11 +197,30 @@ body::before {
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   gap: 1rem;
 }
 
+.primary-grid {
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr);
+  margin-bottom: 1rem;
+}
+
+.secondary-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.95fr);
+  margin-bottom: 1rem;
+}
+
+.tertiary-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.change-card,
+.stage-card,
 .flow-card,
+.dag-card,
+.notes-card,
+.prompts-card,
 .state-card {
   padding: 1.75rem;
 }
@@ -202,6 +233,52 @@ body::before {
   font-size: 1.65rem;
 }
 
+.body-copy {
+  margin: 0 0 1.25rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.detail-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.detail-item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(26, 36, 64, 0.08);
+}
+
+.detail-item strong {
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.stage-list,
 .learning-path {
   list-style: none;
   padding: 0;
@@ -210,15 +287,40 @@ body::before {
   gap: 0.85rem;
 }
 
+.stage-item,
+.learning-path li {
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(26, 36, 64, 0.08);
+}
+
+.stage-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+}
+
+.stage-item p {
+  margin: 0 0 0.6rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.stage-item small,
+.dag-item small {
+  color: var(--secondary);
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+}
+
 .learning-path li {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1rem;
   align-items: start;
-  padding: 1rem 1.1rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(26, 36, 64, 0.08);
 }
 
 .learning-path span {
@@ -240,24 +342,41 @@ body::before {
   line-height: 1.65;
 }
 
-.meta-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.95rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 18px;
-  background: var(--secondary-soft);
+.dag-list,
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
 }
 
-.meta-row strong {
-  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+.dag-item,
+.bullet-list li {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(26, 36, 64, 0.08);
+}
+
+.dag-item strong,
+.bullet-list li {
+  line-height: 1.6;
+}
+
+.dag-item span {
+  color: var(--muted);
+}
+
+.metadata-grid {
+  margin-bottom: 1rem;
 }
 
 .raw-state {
   margin: 0;
-  min-height: 22rem;
+  min-height: 18rem;
   padding: 1rem;
   border-radius: 20px;
   overflow: auto;
@@ -285,7 +404,9 @@ body::before {
 @media (max-width: 900px) {
   .hero,
   .metrics,
-  .content-grid {
+  .primary-grid,
+  .secondary-grid,
+  .tertiary-grid {
     grid-template-columns: 1fr;
   }
 

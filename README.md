@@ -1,24 +1,24 @@
 # GitOps 101 Teaching Project
 
-This repository is a minimal GitOps teaching project:
+This repository is a GitOps teaching project built around a fictional student course portal.
 
 - `main` is the desired state
 - Pull requests are the recommended change entry point
-- CI validates whether a proposed state is acceptable
-- CI runs both unit tests and integration tests
-- After a merge to `main`, CD publishes the site to GitHub Pages
-- The page shows the current version, latest commit hash, and deployment time
+- CI validates the state and runs multiple layers of automated tests
+- CD publishes the merged state to GitHub Pages
+- The site is a teaching artifact, not just a status board
 
-## What Students See
+The declarative source of truth is [`content/site-state.json`](content/site-state.json). The build step enriches that state with derived business metrics and deployment metadata before publishing it.
 
-The deployed page shows:
+## What the Page Teaches
 
-- Current version
-- Latest commit hash
-- Last updated time
-- Teaching copy that explains the GitOps flow
+The deployed site explains:
 
-The site state comes from [`content/site-state.json`](content/site-state.json). In this project, that file is the declarative desired state.
+- What business change is being released
+- Which teams own the change
+- How long the pipeline takes and how much of it is automated
+- A DAG-style view of upstream unit checks and downstream integration confidence
+- Release notes, classroom prompts, commit hash, and deployment time
 
 ## Project Structure
 
@@ -30,14 +30,14 @@ The site state comes from [`content/site-state.json`](content/site-state.json). 
 ├── content/
 │   └── site-state.json
 ├── examples/
-│   ├── bad-integration-change/
-│   │   └── build.mjs
 │   ├── bad-unit-change/
-│   │   └── gitops-state.mjs
+│   │   └── string-utils.mjs
 │   └── good-change/
 │       └── site-state.json
 ├── src/
-│   └── gitops-state.mjs
+│   ├── gitops-state.mjs
+│   ├── pipeline-metrics.mjs
+│   └── string-utils.mjs
 ├── scripts/
 │   ├── build.mjs
 │   ├── serve.mjs
@@ -49,9 +49,11 @@ The site state comes from [`content/site-state.json`](content/site-state.json). 
 └── tests/
     ├── integration/
     │   ├── build.integration.test.mjs
-    │   └── deploy-wiring.integration.test.mjs
+    │   └── site-content.integration.test.mjs
     └── unit/
         ├── gitops-state.test.mjs
+        ├── pipeline-metrics.test.mjs
+        ├── string-utils.test.mjs
         └── validate.test.mjs
 ```
 
@@ -105,8 +107,9 @@ npm run build
 Key points:
 
 - `npm run validate` checks whether `content/site-state.json` satisfies the project rules
-- `npm run test:unit` checks the pure GitOps state logic
-- `npm run test:integration` checks that the build artifact is deployable end to end
+- `npm run test:unit` checks upstream pure logic such as string handling, calculations, and state composition
+- `npm run test:integration` checks that the built artifact contains the data and page structure consumed by the browser
+- The tests form a dependency chain: string helpers and metric helpers feed release-state assembly, which feeds the integration layer
 - If the desired state is invalid, the PR should not pass
 
 ### CD
@@ -120,33 +123,19 @@ Key points:
 
 This gives students a very clear Git-driven deployment loop.
 
-## Bad Change Example 1: Make the Unit Tests Fail
+## Bad Change Example: Break an Upstream Unit Test
 
-This example changes a pure function in `src/gitops-state.mjs` so the unit tests fail while validation still passes.
+This example changes an upstream string helper in `src/string-utils.mjs`. Validation still passes, but the unit-test layer fails before any downstream build confidence is granted.
 
 ```bash
 git switch -c demo/bad-unit-change
-cp examples/bad-unit-change/gitops-state.mjs src/gitops-state.mjs
-git add src/gitops-state.mjs
-git commit -m "demo: break GitOps state unit logic"
+cp examples/bad-unit-change/string-utils.mjs src/string-utils.mjs
+git add src/string-utils.mjs
+git commit -m "demo: break upstream unit logic"
 git push -u origin demo/bad-unit-change
 ```
 
-Then create a PR. CI should fail in the unit-test step because the release label and step summary logic no longer match the expected behavior.
-
-## Bad Change Example 2: Make the Integration Tests Fail
-
-This example changes the build script so the deployment artifact is no longer wired the way the site expects.
-
-```bash
-git switch -c demo/bad-integration-change
-cp examples/bad-integration-change/build.mjs scripts/build.mjs
-git add scripts/build.mjs
-git commit -m "demo: break deployment artifact wiring"
-git push -u origin demo/bad-integration-change
-```
-
-Then create a PR. CI should fail in the integration-test step because the build output no longer includes the expected `site-data.json` artifact.
+Then create a PR. CI should fail in the unit-test step because slug generation and owner formatting no longer match the downstream expectations used by release-state assembly.
 
 ## Good Change Example: Complete a GitOps Release
 
@@ -165,7 +154,7 @@ git push -u origin demo/good-change
 Then walk through the full flow:
 
 1. Open a new branch
-2. Submit a PR
+2. Submit a PR with a better desired state
 3. Let CI run validation, unit tests, and integration tests
 4. Merge into `main`
 5. Let CD deploy automatically
@@ -174,8 +163,8 @@ Then walk through the full flow:
 After deployment you should see:
 
 - Version `1.1.0`
-- The latest post-merge commit hash
-- A fresh deployment timestamp
+- Updated release notes and classroom prompts
+- A new derived rollout score, commit hash, and deployment timestamp
 
 ## Why This Helps Students Understand GitOps
 
@@ -184,6 +173,7 @@ This repository intentionally avoids complex infrastructure and keeps only the c
 - Git is the single source of truth
 - Changes go through PR review
 - Different automated test layers catch different kinds of mistakes
+- Upstream unit checks feed downstream release-state assembly and integration confidence
 - Automated checks block invalid state from entering `main`
 - The state in `main` is automatically reconciled into the live page
 

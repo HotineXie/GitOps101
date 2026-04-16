@@ -20,16 +20,18 @@
       <section class="hero panel reveal">
         <div class="hero-copy">
           <p class="eyebrow">GitOps 101</p>
+          <p id="course-title" class="course-title">Loading course title</p>
           <h1 id="headline">Waiting for deployment metadata</h1>
           <p id="summary">
             This site is built and deployed by GitHub Actions. Every merge to main automatically aligns the live page with the latest Git state.
           </p>
           <p id="flow-summary" class="supporting-copy">Loading the GitOps flow summary.</p>
+          <p id="release-narrative" class="release-narrative">Loading the release narrative.</p>
         </div>
         <div class="hero-side">
           <p class="status-label">Current Status</p>
           <strong id="status">Reading deployment state</strong>
-          <p class="status-note">Git is the source of truth, and Actions publishes it as a visible website.</p>
+          <p class="status-note">Git is the source of truth, Actions publish it, and this page turns the rollout into a lesson instead of a plain dashboard.</p>
         </div>
       </section>
 
@@ -40,34 +42,120 @@
           <small id="version-label">Loading release label</small>
         </article>
         <article class="metric panel reveal" style="--delay: 0.16s;">
-          <p>Latest Commit Hash</p>
-          <strong id="commit">...</strong>
+          <p>Total Lead Time</p>
+          <strong id="lead-time">...</strong>
+          <small id="manual-minutes">Loading manual time</small>
         </article>
         <article class="metric panel reveal" style="--delay: 0.24s;">
-          <p>Updated At</p>
-          <strong id="updated-at">...</strong>
+          <p>Automation Rate</p>
+          <strong id="automation-rate">...</strong>
+          <small id="readiness-label">Loading readiness label</small>
+        </article>
+        <article class="metric panel reveal" style="--delay: 0.32s;">
+          <p>Readiness Score</p>
+          <strong id="readiness-score">...</strong>
+          <small id="review-load">Loading review load</small>
         </article>
       </section>
 
-      <section class="content-grid">
-        <article class="panel reveal flow-card" style="--delay: 0.32s;">
+      <section class="content-grid primary-grid">
+        <article class="panel reveal change-card" style="--delay: 0.4s;">
           <div class="section-heading">
-            <p class="eyebrow">GitOps Flow</p>
-            <h2>A deployment loop students can see directly</h2>
+            <p class="eyebrow">Release Brief</p>
+            <h2 id="change-title">Loading change title</h2>
+          </div>
+          <p id="change-description" class="body-copy">Loading release scope.</p>
+          <div class="detail-list">
+            <div class="detail-item">
+              <span>Owners</span>
+              <strong id="owner-line">...</strong>
+            </div>
+            <div class="detail-item">
+              <span>Change Slug</span>
+              <strong id="change-slug">...</strong>
+            </div>
+            <div class="detail-item">
+              <span>Rollback Window</span>
+              <strong id="rollback-window">...</strong>
+            </div>
+          </div>
+          <div id="keyword-tags" class="tag-list">
+            <span class="tag">Loading tags</span>
+          </div>
+        </article>
+
+        <article class="panel reveal stage-card" style="--delay: 0.48s;">
+          <div class="section-heading">
+            <p class="eyebrow">Pipeline Stages</p>
+            <h2>Each step adds a different kind of confidence</h2>
+          </div>
+          <ol id="pipeline-stages" class="stage-list">
+            <li>Waiting for stages</li>
+          </ol>
+        </article>
+      </section>
+
+      <section class="content-grid secondary-grid">
+        <article class="panel reveal flow-card" style="--delay: 0.56s;">
+          <div class="section-heading">
+            <p class="eyebrow">Learning Path</p>
+            <h2>How students move from Git change to live release</h2>
           </div>
           <ol id="learning-path" class="learning-path">
-            <li>Waiting for content</li>
+            <li>Waiting for learning path</li>
           </ol>
         </article>
 
-        <article class="panel reveal state-card" style="--delay: 0.4s;">
+        <article class="panel reveal dag-card" style="--delay: 0.64s;">
           <div class="section-heading">
-            <p class="eyebrow">Deployed State</p>
-            <h2>Live deployed state</h2>
+            <p class="eyebrow">Test DAG</p>
+            <h2>Upstream unit checks feed downstream integration confidence</h2>
           </div>
-          <div class="meta-row">
-            <span>Source Branch</span>
-            <strong id="source-ref">...</strong>
+          <ul id="dag-graph" class="dag-list">
+            <li>Waiting for the pipeline graph</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="content-grid tertiary-grid">
+        <article class="panel reveal notes-card" style="--delay: 0.72s;">
+          <div class="section-heading">
+            <p class="eyebrow">Release Notes</p>
+            <h2>What changed in the live teaching app</h2>
+          </div>
+          <ul id="release-notes" class="bullet-list">
+            <li>Waiting for release notes</li>
+          </ul>
+        </article>
+
+        <article class="panel reveal prompts-card" style="--delay: 0.8s;">
+          <div class="section-heading">
+            <p class="eyebrow">Classroom Prompts</p>
+            <h2>Questions that tie the code to GitOps decisions</h2>
+          </div>
+          <ul id="student-questions" class="bullet-list">
+            <li>Waiting for discussion prompts</li>
+          </ul>
+        </article>
+
+        <article class="panel reveal state-card" style="--delay: 0.88s;">
+          <div class="section-heading">
+            <p class="eyebrow">Deployment Metadata</p>
+            <h2>What the browser can prove about the current release</h2>
+          </div>
+          <div class="detail-list metadata-grid">
+            <div class="detail-item">
+              <span>Commit</span>
+              <strong id="commit">...</strong>
+            </div>
+            <div class="detail-item">
+              <span>Updated At</span>
+              <strong id="updated-at">...</strong>
+            </div>
+            <div class="detail-item">
+              <span>Source Branch</span>
+              <strong id="source-ref">...</strong>
+            </div>
           </div>
           <pre id="raw-state" class="raw-state">Waiting for site metadata...</pre>
         </article>

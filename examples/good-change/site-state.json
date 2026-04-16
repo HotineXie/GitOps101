@@ -1,12 +1,60 @@
 {
   "version": "1.1.0",
-  "headline": "After the PR is merged, GitHub Pages automatically shows version 1.1.0",
-  "summary": "This example demonstrates the complete GitOps loop: branch, PR, CI, merge, CD, and a visible page update.",
+  "courseTitle": "GitOps for a Student Course Portal",
+  "headline": "Version 1.1.0 adds a richer release brief and tighter automated feedback for students",
+  "summary": "This example demonstrates a stronger GitOps classroom flow: a more useful page, faster upstream test feedback, and a production page that clearly explains what changed after merge.",
+  "changeRequest": {
+    "title": "Publish lesson 5 and reduce release friction",
+    "description": "Add the next lesson module, shorten manual review time, and keep GitHub Pages deployments transparent for students following the release.",
+    "owners": [
+      "Platform Team",
+      "Teaching Assistants"
+    ],
+    "reviewers": 2,
+    "filesChanged": 5,
+    "rollbackWindowMinutes": 10
+  },
+  "pipelineStages": [
+    {
+      "name": "Unit Tests",
+      "minutes": 2,
+      "automated": true,
+      "purpose": "Catch upstream logic regressions in string processing and rollout scoring."
+    },
+    {
+      "name": "Integration Tests",
+      "minutes": 4,
+      "automated": true,
+      "purpose": "Verify the built artifact exposes the data that the frontend actually renders."
+    },
+    {
+      "name": "Preview Review",
+      "minutes": 6,
+      "automated": false,
+      "purpose": "Review the richer teaching page before the change reaches main."
+    },
+    {
+      "name": "GitHub Pages Deploy",
+      "minutes": 4,
+      "automated": true,
+      "purpose": "Publish the merged state and stamp the page with the latest deployment metadata."
+    }
+  ],
   "learningPath": [
     "Create a feature branch from main to prepare release 1.1.0.",
-    "Submit a pull request so CI can validate the version and page state.",
-    "Complete review in the PR and confirm that all checks pass.",
-    "Merge into main so CD rebuilds the site and writes the new commit hash.",
-    "Let GitHub Pages publish the update so students can see the new version immediately."
+    "Submit a pull request so CI can validate the desired state and score the rollout.",
+    "Use the unit-test and integration-test results to review the release with confidence.",
+    "Merge into main so CD rebuilds the site and writes the new deployment metadata.",
+    "Let GitHub Pages publish the update so students can see the new lesson and release brief."
+  ],
+  "releaseNotes": [
+    "The new release brief explains the business change, owners, and rollout posture in plain language.",
+    "The pipeline is faster because the unit-test layer catches upstream logic issues earlier.",
+    "Students can compare the new version, commit hash, and updated timestamp after deployment."
+  ],
+  "studentQuestions": [
+    "How does faster unit-test feedback change the way you review a pull request?",
+    "Which deployment metric on the page would you watch first after the merge?",
+    "What evidence on the live page proves that GitHub Pages deployed the merged commit?"
   ]
 }

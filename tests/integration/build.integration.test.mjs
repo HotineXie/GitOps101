@@ -33,6 +33,10 @@ test("buildSite produces a deployable artifact", async () => {
     assert.equal(metadata.version, "1.0.0");
     assert.equal(builtState.shortCommitHash, "abc1234");
     assert.equal(builtState.sourceRef, "main");
+    assert.equal(builtState.changeSlug, "publish-lesson-4-and-tighten-deployment-feedback");
+    assert.equal(builtState.totalLeadTime, 20);
+    assert.equal(builtState.readinessScore, 59);
+    assert.deepEqual(builtState.keywordTags, ["publish", "lesson", "tighten", "deployment"]);
     assert.equal(
       builtState.commitUrl,
       "https://github.com/HotineXie/GitOps101/commit/abc1234def5678"
