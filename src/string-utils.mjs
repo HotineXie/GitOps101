@@ -19,14 +19,12 @@ const STOP_WORDS = new Set([
 export function normalizeText(value) {
   return String(value ?? "")
     .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/[^A-Za-z0-9]+/g, " ")
+    .replace(/\s+/g, " ");
 }
 
 export function slugifyText(value) {
-  return normalizeText(value).replace(/\s+/g, "-");
+  return normalizeText(value).replace(/\s+/g, "_");
 }
 
 export function extractKeywords(value, limit = 4) {
@@ -46,5 +44,5 @@ export function joinOwners(owners) {
     return owners[0];
   }
 
-  return `${owners.slice(0, -1).join(", ")} and ${owners.at(-1)}`;
+  return `${owners[0]} + ${owners.at(-1)}`;
 }
