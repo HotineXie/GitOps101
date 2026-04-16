@@ -1,0 +1,12 @@
+{
+  "version": "1.1.0",
+  "headline": "After the PR is merged, GitHub Pages automatically shows version 1.1.0",
+  "summary": "This example demonstrates the complete GitOps loop: branch, PR, CI, merge, CD, and a visible page update.",
+  "learningPath": [
+    "Create a feature branch from main to prepare release 1.1.0.",
+    "Submit a pull request so CI can validate the version and page state.",
+    "Complete review in the PR and confirm that all checks pass.",
+    "Merge into main so CD rebuilds the site and writes the new commit hash.",
+    "Let GitHub Pages publish the update so students can see the new version immediately."
+  ]
+}

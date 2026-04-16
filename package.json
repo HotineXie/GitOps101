@@ -1,0 +1,19 @@
+{
+  "name": "gitops101",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A GitOps-based CI/CD teaching project for GitHub Pages.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "test:integration": "node --test tests/integration/*.test.mjs",
+    "test": "npm run test:unit && npm run test:integration",
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs dist 4173",
+    "dev": "npm run build && npm run serve"
+  }
+}

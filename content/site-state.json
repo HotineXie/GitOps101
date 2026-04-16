@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "headline": "The main branch is the desired state for the GitHub Pages site",
+  "summary": "Update the declarative state through a pull request, let CI validate it, and let CD deploy it after merge.",
+  "learningPath": [
+    "Open a feature branch and change content/site-state.json.",
+    "Submit a pull request so CI can validate the proposed desired state.",
+    "Merge into main after review and passing checks.",
+    "Let CD rebuild the site from the merged Git commit.",
+    "Watch GitHub Pages publish the new page so live state matches main."
+  ]
+}
